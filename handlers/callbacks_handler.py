@@ -19,7 +19,7 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict):
 			await bot.send_message(query.from_user.id, 'На данный момент в Киномаксе нет сеансов')
 		else:
 			for film in films:
-				await bot.send_message(query.from_user.id, f'Фильм: {film["title"]}\n' + hlink('Купить билет', film["buy"]))
+				await bot.send_message(query.from_user.id, f'Фильм: {film["title"].upper()}\n' + hlink('Купить билет', film["buy"].upper()))
 
 	elif id == 'find_film':
 		await bot.send_message(query.from_user.id, 'Данная функция находится в разработке')
