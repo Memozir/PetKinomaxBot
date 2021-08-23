@@ -13,3 +13,8 @@ async def start_message(message: types.Message):
 async def display_func(message: types.Message):
 	if message.text.lower() == 'начать':
 		await message.answer('Выберите, что хотите сделать:', reply_markup=keyboards.kb_func)
+
+
+@dp.message_handler(commands='geo')
+async def get_geo(message: types.Message):
+	await message.answer('Э, дай геолокацию!', reply_markup=keyboards.geo_kb)
