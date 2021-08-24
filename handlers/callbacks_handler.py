@@ -1,7 +1,8 @@
 from dispatcher import dp, bot
 from . callback_factory import cb
 from aiogram import types
-from kinomax_parser import result
+#from kinomax_parser import result
+from kinomax.kinomax_parser import result
 from aiogram.utils.markdown import hlink
 
 

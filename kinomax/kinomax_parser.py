@@ -28,7 +28,7 @@ def result():
 	result = []
 
 	headers = {
-		'user-agent': 'chroppa3222'
+		'user-agent': 'choppa322'
 	}
 
 	get = requests.get(LINK, headers=headers)
@@ -38,7 +38,6 @@ def result():
 
 	for film in films:
 
-		print(film)
 
 		# Searching film`s title
 		text = film.find('div', class_='d-flex flex-column w-90')
@@ -54,25 +53,21 @@ def result():
 		info = text.find('div', class_='d-flex fs-08 pt-3 text-main')
 		info = str(info.find('div', class_='w-70').text) 	#info
 
-		# print(f'{title.text} --> {href}')
 
-		# result.append(
-		# 		{
-		# 			'title': title.text,
-		# 			# 'buy': BUY_LINK + href
-		# 		}
-		# 	)
-return result
+		result.append(
+				{
+					'title': title.text,
+					'buy': BUY_LINK + href
+				}
+			)
+
+	return result
 
 
 
 if __name__ == '__main__':
 
-	
-	
-	# a = result()
+	a = result()
 
-	# for i in a:
-	# 	print(i)
-
-	
+	for i in a:
+		print(i['title'])
