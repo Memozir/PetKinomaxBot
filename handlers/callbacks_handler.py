@@ -23,6 +23,7 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 	if id == 'parse':
 
 		await bot.send_message(query['message']['chat']['id'], 'Это может занять пару секунд')
+		await state.reset_data()
 
 		films = result()
 		films = keyboards.add_btn(films)
@@ -79,4 +80,3 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 				await bot.edit_message_text(chat_id=query['from']['id'], message_id=film['message_id'],
 					text=f'{film["title"].upper()}\n' + hlink('Купить билет'.upper(), film["buy"]),
 					reply_markup=film['kb_show'], disable_web_page_preview=True)
-
