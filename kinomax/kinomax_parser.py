@@ -4,22 +4,6 @@ import re
 
 LINK = 'https://admin.kinomax.ru/vladimir/'
 
-# def get_dig(href):
-
-# 	href_digit = ''
-# 	count = 0
-
-# 	for i in href:
-# 		if i == '/':
-# 			if count == 2:
-# 				href_digit += i
-# 			else:
-# 				count += 1
-# 				continue
-# 		else:
-# 			continue
-# 	return href_digit
-
 
 def result():
 
@@ -46,28 +30,38 @@ def result():
 
 
 		# Get href
-		href = str(title.get('href'))	#href
+		href = str(title.get('href'))
+		discription_link = href
 		href = re.split(r'/', href)[2]
 
 
-		info = text.find('div', class_='d-flex fs-08 pt-3 text-main')
-		info = str(info.find('div', class_='w-70').text) 	#info
+		# info = text.find('div', class_='d-flex fs-08 pt-3 text-main')
+		# info = str(info.find('div', class_='w-70').text) 	#info
 
 
+		# Get discription
+		dis_link = 'https://admin.kinomax.ru' + discription_link
+		get_discription = requests.get(dis_link, headers=headers)
+		discription_soup = BeautifulSoup(get_discription.text, 'html.parser')
+
+		discription_container = discription_soup.find_all('div', class_='container')[6]
+		discription = discription_container.find('div', class_='pt-4').text
+
+		# Creating an result
 		result.append(
 				{
 					'title': title.text,
-					'buy': BUY_LINK + href
+					'buy': BUY_LINK + href,
+					'discription': discription
 				}
 			)
 
 	return result
 
 
-
 if __name__ == '__main__':
 
 	a = result()
 
-	for i in a:
-		print(i['title'])
+	# for i in a:
+	# 	print(i['discription'])
