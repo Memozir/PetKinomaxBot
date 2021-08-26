@@ -22,6 +22,8 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 	if id == 'parse':
 
+		await bot.send_message(query['message']['chat']['id'], 'Это может занять пару секунд')
+
 		films = result()
 		films = keyboards.add_btn(films)
 
