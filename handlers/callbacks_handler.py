@@ -28,7 +28,7 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 		films = result()
 		films = keyboards.add_btn(films)
 
-		id_count = 1
+		id_count = 2
 
 		for film in films:
 			film['chat_id'] = query['message']['from']['id']
