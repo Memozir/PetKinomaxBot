@@ -10,3 +10,9 @@ dp = Dispatcher(bot, storage=storage)
 async def shutdow(dispatcher: Dispatcher):
 	await dispatcher.storage.close()
 	await dispatcher.storage.wait_closed()
+
+
+# async def bot_start(state: FSMContext):
+# 	await MessageNumber.SAVE_ID.set()
+# 	await state.update_data(find_film_count = 0)
+# 	await state.reset_state(with_data=False)

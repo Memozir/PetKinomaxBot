@@ -17,22 +17,25 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 	await bot.answer_callback_query(query.id)
 
+
 	id = callback_data['id']
 	show_hide_check = re.split('_', id)[0]
 
 	if id == 'parse':
 
-		await bot.send_message(query['message']['chat']['id'], 'Это может занять пару секунд')
-		await state.reset_data()
+		await bot.send_message(query['message']['chat']['id'], 'Это может занять пару секунд') # user friendly message
+		# await state.reset_data()
 
 		films = result()
 		films = keyboards.add_btn(films)
 
-		id_count = 2
+		data = await state.get_data()
+		user_friendly_message_id = data['find_film_count'] + query['message']['message_id'] + 1
 
+		id_count = 1
 		for film in films:
 			film['chat_id'] = query['message']['from']['id']
-			film['message_id'] = query['message']['message_id'] + id_count
+			film['message_id'] = user_friendly_message_id + id_count
 			id_count += 1
 
 		#updating the data in state
@@ -48,17 +51,20 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 			for film in films:
 
 				await bot.send_message(query.from_user.id, 
-					f'{film["title"].upper()}\n' + hlink('Купить билет'.upper(), film["buy"]),
+					f'{film["title"].upper()}\n' + hlink('купить билет'.upper(), film["buy"]),
 					disable_web_page_preview=True, reply_markup=film['kb_show'])
 
-	elif id == 'find_film':
-
+	# The problem of this block in thing that it changes the order of message id \
+	# and that`s why, after the 'find film' button was clicked, during of the displaying discription of a film \
+	# the discription displays on a different new message
+	if id == 'find_film':
 		await bot.send_message(query.from_user.id, 'Данная функция находится в разработке')
+		data = await state.get_data()
+		find_film_count = data['find_film_count']
+		find_film_count += 1
+		await state.update_data(find_film_count = find_film_count)
 
 	elif show_hide_check == 'show':
-
-		# films = result()
-		# films = keyboards.add_btn(films)
 
 		films = await state.get_data()
 
