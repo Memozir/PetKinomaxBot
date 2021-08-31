@@ -17,7 +17,6 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 	await bot.answer_callback_query(query.id)
 
-
 	id = callback_data['id']
 	show_hide_check = re.split('_', id)[0]
 
@@ -54,9 +53,7 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 					f'{film["title"].upper()}\n' + hlink('купить билет'.upper(), film["buy"]),
 					disable_web_page_preview=True, reply_markup=film['kb_show'])
 
-	# The problem of this block in thing that it changes the order of message id \
-	# and that`s why, after the 'find film' button was clicked, during of the displaying discription of a film \
-	# the discription displays on a different new message
+
 	if id == 'find_film':
 		await bot.send_message(query.from_user.id, 'Данная функция находится в разработке')
 		data = await state.get_data()
