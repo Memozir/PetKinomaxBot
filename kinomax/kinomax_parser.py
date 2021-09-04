@@ -7,61 +7,73 @@ LINK = 'https://admin.kinomax.ru/vladimir/'
 
 def result():
 
-	BUY_LINK = "https://admin.kinomax.ru/films/"
+    BUY_LINK = "https://admin.kinomax.ru/films/"
 
-	result = []
+    result = []
 
-	headers = {
-		'user-agent': 'choppa322'
-	}
+    headers = {
+        'user-agent': 'choppa322'
+    }
 
-	get = requests.get(LINK, headers=headers)
-	soup = BeautifulSoup(get.text, 'html.parser')
+    get = requests.get(LINK, headers=headers)
+    soup = BeautifulSoup(get.text, 'html.parser')
 
-	films = soup.find_all('div', class_='film')
+    films = soup.find_all('div', class_='film')
 
-	for film in films:
-
-
-		# Searching film`s title
-		text = film.find('div', class_='d-flex flex-column w-90')
-		title = text.find('div', class_='d-flex fs-09 pb-2')
-		title = title.find('a') 	# Title
+    for film in films:
 
 
-		# Get href
-		href = str(title.get('href'))
-		discription_link = href
-		href = re.split(r'/', href)[2]
+        # Searching film`s title
+        text = film.find('div', class_='d-flex flex-column w-90')
+        title = text.find('div', class_='d-flex fs-09 pb-2')
+        title = title.find('a') 	# Title
+
+        # Getting time of showing
+        # time info block class - session pr-2 d-flex flex-column pb-3
+        time_containers = film.find_all('div', class_='session pr-2 d-flex flex-column pb-3')
+
+        time = ''
+        for ftime in time_containers:
+            time_text = ftime.find('a').text
+            time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
+            time += f'{time_text} - {time_price[1]}руб.\n'
+
+        # Get href
+        href = str(title.get('href'))
+        discription_link = href
+        href = re.split(r'/', href)[2]
 
 
-		# info = text.find('div', class_='d-flex fs-08 pt-3 text-main')
-		# info = str(info.find('div', class_='w-70').text) 	#info
+        # info = text.find('div', class_='d-flex fs-08 pt-3 text-main')
+        # info = str(info.find('div', class_='w-70').text) 	#info
 
 
-		# Get discription
-		dis_link = 'https://admin.kinomax.ru' + discription_link
-		get_discription = requests.get(dis_link, headers=headers)
-		discription_soup = BeautifulSoup(get_discription.text, 'html.parser')
+        # Get discription
+        dis_link = 'https://admin.kinomax.ru' + discription_link
+        get_discription = requests.get(dis_link, headers=headers)
+        discription_soup = BeautifulSoup(get_discription.text, 'html.parser')
 
-		discription_container = discription_soup.find_all('div', class_='container')[6]
-		discription = discription_container.find('div', class_='pt-4').text
+        discription_container = discription_soup.find_all('div', class_='container')[6]
+        discription = discription_container.find('div', class_='pt-4').text
 
-		# Creating an result
-		result.append(
-				{
-					'title': title.text,
-					'buy': BUY_LINK + href,
-					'discription': discription
-				}
-			)
+        # Creating an result
+        result.append(
+                {
+                    'title': title.text,
+                    'buy': BUY_LINK + href,
+                    'time': time,
+                    'discription': discription
+                }
+            )
 
-	return result
+    return result
 
 
 if __name__ == '__main__':
 
-	a = result()
+    a = result()
+    # for item in a:
+    #     print(item['time'])
 
-	# for i in a:
-	# 	print(i['discription'])
+    # for i in a:
+    # 	print(i['discription'])

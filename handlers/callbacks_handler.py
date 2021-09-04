@@ -22,7 +22,7 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 	if id == 'parse':
 
-		await bot.send_message(query['message']['chat']['id'], 'Это может занять пару секунд') # user friendly message
+		await bot.send_message(query['message']['chat']['id'], 'Это может занять несколько секунд') # user friendly message
 		# await state.reset_data()
 
 		films = result()
@@ -49,9 +49,14 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 			id_count = 0
 			for film in films:
 
-				await bot.send_message(query.from_user.id, 
-					f'{film["title"].upper()}\n' + hlink('купить билет'.upper(), film["buy"]),
-					disable_web_page_preview=True, reply_markup=film['kb_show'])
+				await bot.send_message(
+                    query.from_user.id, 
+					f'<b>{film["title"]}</b>\n' +
+                    hlink('купить билет\n'.upper(), film["buy"]) + 
+                    f'\nСеансы:\n{film["time"]}',
+					disable_web_page_preview=True,
+                    reply_markup=film['kb_show']
+                    )
 
 
 	if id == 'find_film':
@@ -80,6 +85,12 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 		for film in films['movies']:
 			if id == film['id_hide']:
-				await bot.edit_message_text(chat_id=query['from']['id'], message_id=film['message_id'],
-					text=f'{film["title"].upper()}\n' + hlink('Купить билет'.upper(), film["buy"]),
-					reply_markup=film['kb_show'], disable_web_page_preview=True)
+				await bot.edit_message_text(
+                    chat_id=query['from']['id'],
+                    message_id=film['message_id'],
+					text=f'<b>{film["title"]}</b>\n' +
+                    hlink('купить билет\n'.upper(), film["buy"]) + 
+                    f'\nСеансы:\n{film["time"]}',
+					disable_web_page_preview=True,
+                    reply_markup=film['kb_show']
+                    )
