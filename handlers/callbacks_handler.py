@@ -51,9 +51,9 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 
 				await bot.send_message(
                     query.from_user.id, 
-					f'<b>{film["title"]}</b>\n' +
-                    hlink('купить билет\n'.upper(), film["buy"]) + 
-                    f'\nСеансы:\n{film["time"]}',
+					f'<b>{film["title"]}</b>\n' + 
+                    f'\nСеансы:\n{film["time"]}' + 
+                    hlink('купить билет\n'.upper(), film["buy"]),
 					disable_web_page_preview=True,
                     reply_markup=film['kb_show']
                     )
@@ -88,9 +88,9 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
 				await bot.edit_message_text(
                     chat_id=query['from']['id'],
                     message_id=film['message_id'],
-					text=f'<b>{film["title"]}</b>\n' +
-                    hlink('купить билет\n'.upper(), film["buy"]) + 
-                    f'\nСеансы:\n{film["time"]}',
+					text=f'<b>{film["title"]}</b>\n' + 
+                    f'\nСеансы:\n{film["time"]}' + 
+                    hlink('купить билет\n'.upper(), film["buy"]),
 					disable_web_page_preview=True,
                     reply_markup=film['kb_show']
                     )
