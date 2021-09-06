@@ -36,7 +36,7 @@ def result():
         for ftime in time_containers:
             time_text = ftime.find('a').text
             time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
-            time += f'{time_text} - {time_price[1]}руб.\n'
+            time += f'{time_text} - {time_price}руб.\n'
 
         # Get href
         href = str(title.get('href'))
@@ -72,8 +72,8 @@ def result():
 if __name__ == '__main__':
 
     a = result()
-    # for item in a:
-    #     print(item['time'])
+    for item in a:
+        print(item)
 
     # for i in a:
     # 	print(i['discription'])
