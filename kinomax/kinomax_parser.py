@@ -32,11 +32,18 @@ def result():
         # time info block class - session pr-2 d-flex flex-column pb-3
         time_containers = film.find_all('div', class_='session pr-2 d-flex flex-column pb-3')
 
-        time = ''
+        time = ""
         for ftime in time_containers:
             time_text = ftime.find('a').text
             time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
-            time += f'{time_text} - {time_price}руб.\n'
+
+            finish_price = ""
+            if len(time_price) > 1:
+                finish_price = time_price[1]
+            else:
+                finish_price = time_price
+
+            time += f'{time_text} - {finish_price}руб.\n'
 
         # Get href
         href = str(title.get('href'))
