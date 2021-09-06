@@ -41,7 +41,7 @@ def result():
             if len(time_price) > 1:
                 finish_price = time_price[1]
             else:
-                finish_price = time_price
+                finish_price = time_price[0]
 
             time += f'{time_text} - {finish_price}руб.\n'
 
