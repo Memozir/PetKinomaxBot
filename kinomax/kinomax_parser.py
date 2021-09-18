@@ -30,36 +30,42 @@ def result():
 
         # Getting time of showing
         # time info block class - session pr-2 d-flex flex-column pb-3
-        time_containers = film.find_all('div', class_='session pr-2 d-flex flex-column pb-3')
-        time_containers_tagged = film.find_all('div', clas_='session pr-2 d-flex flex-column pb-3 tagged')
-
+        
+        
         time = ""
 
-        # Commor time
-        for ftime in time_containers:
-            time_text = ftime.find('a').text
-            time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
+        if not film.find('div', class_='bottom'):
 
-            finish_price = ""
-            if len(time_price) > 1:
-                finish_price = time_price[1]
-            else:
-                finish_price = time_price[0]
+            time_containers = film.find_all('div', class_='session pr-2 d-flex flex-column pb-3')
 
-            time += f'{time_text} - {finish_price}руб.\n'
+            for ftime in time_containers:
+                time_text = ftime.find('a').text
+                time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
 
-        # Tagged time
-        for ftime in time_containers_tagged:
-            time_text = ftime.find('a').text
-            time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
+                finish_price = ""
+                if len(time_price) > 1:
+                    finish_price = time_price[1]
+                else:
+                    finish_price = time_price[0]
 
-            finish_price = ""
-            if len(time_price) > 1:
-                finish_price = time_price[1]
-            else:
-                finish_price = time_price[0]
+                time += f'{time_text} - {finish_price}руб.\n'
 
-            time += f'{time_text} - {finish_price}руб.\n'
+        else:
+            time_containers_tagged = film.find_all('div', class_='session pr-2 d-flex flex-column pb-3 tagged')
+            
+
+            for ftime in time_containers_tagged:
+                time_text = ftime.find('a').text
+                time_price = ftime.find('div', class_='fs-07 text-main pt-2 text-center').text.split()
+
+                finish_price = ""
+                if len(time_price) > 1:
+                    finish_price = time_price[1]
+                else:
+                    finish_price = time_price[0]
+
+                time += f'{time_text} - {finish_price}руб.\n'
+
 
         # Get href
         href = str(title.get('href'))
