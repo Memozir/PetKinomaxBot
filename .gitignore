@@ -2,3 +2,4 @@ venv
 runtime.txt
 config.py
 .vscode
+__pycache__
