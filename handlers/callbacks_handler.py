@@ -59,12 +59,12 @@ async def bot_functions(query: types.CallbackQuery, callback_data: dict, state: 
                     )
 
 
-	if id == 'find_film':
-		await bot.send_message(query.from_user.id, 'Данная функция находится в разработке')
-		data = await state.get_data()
-		find_film_count = data['find_film_count']
-		find_film_count += 1
-		await state.update_data(find_film_count = find_film_count)
+	# if id == 'find_film':
+	# 	await bot.send_message(query.from_user.id, 'Данная функция находится в разработке')
+	# 	data = await state.get_data()
+	# 	find_film_count = data['find_film_count']
+	# 	find_film_count += 1
+	# 	await state.update_data(find_film_count = find_film_count)
 
 	elif show_hide_check == 'show':
 

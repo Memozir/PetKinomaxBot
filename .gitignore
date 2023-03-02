@@ -1,5 +1,6 @@
 venv
 runtime.txt
-config.py
+Procfile
+.env
 .vscode
 __pycache__

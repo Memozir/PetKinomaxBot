@@ -11,8 +11,8 @@ kb_start.add(btn_start)
 # Functions keyboard
 kb_func = InlineKeyboardMarkup(row_width=1)
 btn_parse = InlineKeyboardButton(text='Афиша в кинотеатре', callback_data=cb.new(id='parse'))
-btn_find_film = InlineKeyboardButton(text='Найти фильм', callback_data=cb.new(id='find_film'))
-kb_func.add(btn_parse, btn_find_film)
+# btn_find_film = InlineKeyboardButton(text='Найти фильм', callback_data=cb.new(id='find_film'))
+kb_func.add(btn_parse)
 
 # Geolocation
 btn_geo = KeyboardButton('Поделиться геопозицией', request_location=True)

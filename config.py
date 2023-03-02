@@ -1,1 +1,6 @@
-TOKEN = "1998471173:AAFlbqeE673lsfRMDwEEQsBjQ05MeHsorvY"
+import dotenv
+import os
+
+dotenv.load_dotenv()
+
+TOKEN = os.getenv('TOKEN')
