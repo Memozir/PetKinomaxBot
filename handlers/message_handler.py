@@ -17,11 +17,3 @@ async def display_func(message: types.Message, state: FSMContext):
 		await state.update_data(find_film_count = 0)
 		await MessageNumber.SAVE_ID.set()
 		await message.answer('Выберите, что хотите сделать:', reply_markup=keyboards.kb_func)
-
-
-@dp.message_handler(commands='geo')
-async def get_geo(message: types.Message):
-	await message.answer('Э, дай геолокацию!', reply_markup=keyboards.geo_kb)
-
-
-

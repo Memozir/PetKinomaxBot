@@ -24,12 +24,11 @@ def add_btn(films):
 	count = 0
 
 	for film in films:
-
+		
 		film['id_show'] = f'show_{count}'
 		film['id_hide'] = f'hide_{count}'
 		film['kb_show'] = InlineKeyboardMarkup(resize_keyboard=True).add(InlineKeyboardButton('Описание', row_width=1, callback_data=cb.new(id=f'show_{count}')))
 		film['kb_hide'] = InlineKeyboardMarkup(resize_keyboard=True).add(InlineKeyboardButton('Назад', row_width=1, callback_data=cb.new(id=f'hide_{count}')))
 		count += 1
-
 
 	return films
